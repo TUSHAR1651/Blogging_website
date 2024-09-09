@@ -12,14 +12,21 @@ function BlogDetails() {
   const blog = useSelector((state) =>
     state.blogs.posts.find((post) => post.id === parseInt(blogId, 10))
   );
-  const themeMode = useSelector((state) => state.theme.mode); // Assuming theme mode is stored in Redux
+  const themeMode = useSelector((state) => state.theme.mode);
 
   if (!blog) {
-    return <p className={`text-center ${themeMode === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Blog not found</p>;
+    return (
+      <p
+        className={`text-center ${
+          themeMode === "dark" ? "text-gray-400" : "text-gray-600"
+        }`}
+      >
+        Blog not found
+      </p>
+    );
   }
 
   const handleEdit = () => {
-    console.log("Navigating to edit");
     navigate(`/editor/${blog.id}`);
   };
 
@@ -40,23 +47,37 @@ function BlogDetails() {
   });
 
   return (
-    <div className={`max-w-4xl mx-auto px-4 py-6 ${themeMode === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
-      <h1 className="text-3xl font-bold mb-2">{blog.title}</h1>
-      <p className="mb-4">{formattedDateTime}</p>
+    <div
+      className={`max-w-4xl mx-auto px-4 py-6 sm:px-6 lg:px-8 ${
+        themeMode === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
+      }`}
+    >
+      <h1 className="text-2xl sm:text-3xl font-bold mb-2">{blog.title}</h1>
+      <p className="mb-4 text-sm sm:text-base">{formattedDateTime}</p>
       <div
-        className={`prose prose-lg ${themeMode === 'dark' ? 'prose-invert' : ''}`}
+        className={`prose prose-sm sm:prose-lg ${
+          themeMode === "dark" ? "prose-invert" : ""
+        }`}
         dangerouslySetInnerHTML={{ __html: sanitizeHtml(blog.content) }}
       />
-      <div className="mt-4 flex space-x-2">
+      <div className="mt-4 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
         <button
           onClick={handleEdit}
-          className={`px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${themeMode === 'dark' ? 'bg-blue-600 text-white' : 'bg-blue-600 text-white'}`}
+          className={`px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            themeMode === "dark"
+              ? "bg-blue-600 text-white"
+              : "bg-blue-600 text-white"
+          }`}
         >
           Edit Post
         </button>
         <button
           onClick={handleDelete}
-          className={`px-4 py-2 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 ${themeMode === 'dark' ? 'bg-red-600 text-white' : 'bg-red-600 text-white'}`}
+          className={`px-4 py-2 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 ${
+            themeMode === "dark"
+              ? "bg-red-600 text-white"
+              : "bg-red-600 text-white"
+          }`}
         >
           Delete Post
         </button>

@@ -8,7 +8,7 @@ function Homepage() {
 
   return (
     <div className="container mx-auto px-4 py-6 dark:bg-gray-900">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {blogs.map((blog) => (
           <div
             key={blog.id}
@@ -17,12 +17,12 @@ function Homepage() {
             <div className="p-4">
               <Link
                 to={`/blog/${blog.id}`}
-                className="text-2xl font-bold text-blue-600 hover:underline dark:text-blue-400"
+                className="text-lg md:text-2xl font-bold text-blue-600 hover:underline dark:text-blue-400"
               >
                 {blog.title}
               </Link>
               <p
-                className="text-gray-600 mt-2 dark:text-gray-400"
+                className="text-sm md:text-base text-gray-600 mt-2 dark:text-gray-400"
                 dangerouslySetInnerHTML={{ __html: sanitizeHtml(blog.excerpt) }}
               />
             </div>
