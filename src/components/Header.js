@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
-import ThemeControls from "./ThemeControls"; // Import ThemeControls
+import ThemeControls from "./ThemeControls"; 
 
 function Header() {
   const categories = useSelector((state) => state.blogs.categories);
@@ -13,7 +13,7 @@ function Header() {
     e.preventDefault();
     if (searchTerm.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
-      setSearchTerm(""); // Clear the search field after submission
+      setSearchTerm(""); 
     }
   };
 
@@ -30,7 +30,7 @@ function Header() {
           </RouterLink>
         </h1>
 
-        {/* Categories */}
+        
         <div className="flex-grow flex items-center space-x-6 mt-2 lg:mt-0 flex-wrap">
           {categories && categories.length > 0 ? (
             categories.map((category) => (
@@ -49,7 +49,7 @@ function Header() {
           )}
         </div>
 
-        {/* Search Bar */}
+        
         <form
           onSubmit={handleSearch}
           className="flex items-center space-x-2 mt-2 lg:mt-0"
@@ -69,10 +69,10 @@ function Header() {
           </button>
         </form>
 
-        {/* Theme Controls */}
+        
         <ThemeControls className="mt-2 lg:mt-0" />
 
-        {/* New Post Button */}
+        
         <RouterLink
           to="/editor"
           className="ml-4 p-2 bg-gray-600 rounded text-white hover:bg-gray-500 dark:bg-gray-700 dark:hover:bg-gray-600 mt-2 lg:mt-0"
