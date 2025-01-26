@@ -1,4 +1,3 @@
-// src/pages/BlogDetails.js
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,17 +11,12 @@ function BlogDetails() {
   const blog = useSelector((state) =>
     state.blogs.posts.find((post) => post.id === parseInt(blogId, 10))
   );
-  const themeMode = useSelector((state) => state.theme.mode);
 
   if (!blog) {
     return (
-      <p
-        className={`text-center ${
-          themeMode === "dark" ? "text-gray-400" : "text-gray-600"
-        }`}
-      >
-        Blog not found
-      </p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300">
+        <p className="text-2xl font-semibold">Blog not found 🕵️‍♀️</p>
+      </div>
     );
   }
 
@@ -47,40 +41,34 @@ function BlogDetails() {
   });
 
   return (
-    <div
-      className={`max-w-4xl mx-auto px-4 py-6 sm:px-6 lg:px-8 ${
-        themeMode === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
-      }`}
-    >
-      <h1 className="text-2xl sm:text-3xl font-bold mb-2">{blog.title}</h1>
-      <p className="mb-4 text-sm sm:text-base">{formattedDateTime}</p>
-      <div
-        className={`prose prose-sm sm:prose-lg ${
-          themeMode === "dark" ? "prose-invert" : ""
-        }`}
-        dangerouslySetInnerHTML={{ __html: sanitizeHtml(blog.content) }}
-      />
-      <div className="mt-4 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-        <button
-          onClick={handleEdit}
-          className={`px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-            themeMode === "dark"
-              ? "bg-blue-600 text-white"
-              : "bg-blue-600 text-white"
-          }`}
-        >
-          Edit Post
-        </button>
-        <button
-          onClick={handleDelete}
-          className={`px-4 py-2 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 ${
-            themeMode === "dark"
-              ? "bg-red-600 text-white"
-              : "bg-red-600 text-white"
-          }`}
-        >
-          Delete Post
-        </button>
+    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+      <div className="max-w-3xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg shadow-2xl rounded-2xl p-8 sm:p-12">
+        <h1 className="text-4xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+          {blog.title}
+        </h1>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+          Published on {formattedDateTime}
+        </p>
+        
+        <div 
+          className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-gray-900 dark:prose-headings:text-white prose-a:text-blue-600 dark:prose-a:text-blue-300 hover:prose-a:text-blue-500 dark:hover:prose-a:text-blue-200"
+          dangerouslySetInnerHTML={{ __html: sanitizeHtml(blog.content) }}
+        />
+        
+        <div className="mt-8 flex space-x-4">
+          <button
+            onClick={handleEdit}
+            className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:scale-105 transition-transform"
+          >
+            Edit Post
+          </button>
+          <button
+            onClick={handleDelete}
+            className="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:scale-105 transition-transform"
+          >
+            Delete Post
+          </button>
+        </div>
       </div>
     </div>
   );

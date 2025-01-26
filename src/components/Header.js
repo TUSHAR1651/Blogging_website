@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import SearchIcon from "@mui/icons-material/Search";
 import ThemeControls from "./ThemeControls"; 
 
 function Header() {
@@ -18,26 +17,22 @@ function Header() {
   };
 
   return (
-    <header className="bg-gray-800 text-white dark:bg-gray-900 dark:text-gray-200">
-      <div className="max-w-screen-xl mx-auto px-4 py-2 flex items-center justify-between flex-wrap">
-        {/* Logo and Title */}
-        <h1 className="text-2xl font-semibold mr-8">
-          <RouterLink
-            to="/"
-            className="text-white dark:text-gray-100 no-underline"
-          >
-            My Blog
-          </RouterLink>
-        </h1>
+    <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+        <RouterLink 
+          to="/" 
+          className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600"
+        >
+          BlogVibe
+        </RouterLink>
 
-        
-        <div className="flex-grow flex items-center space-x-6 mt-2 lg:mt-0 flex-wrap">
+        <nav className="hidden md:flex items-center space-x-6">
           {categories && categories.length > 0 ? (
             categories.map((category) => (
               <RouterLink
                 key={category}
                 to={`/category/${category}`}
-                className="text-white dark:text-gray-300 hover:underline"
+                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 {category}
               </RouterLink>
@@ -47,38 +42,31 @@ function Header() {
               No Categories
             </span>
           )}
-        </div>
+        </nav>
 
-        
-        <form
-          onSubmit={handleSearch}
-          className="flex items-center space-x-2 mt-2 lg:mt-0"
-        >
-          <input
-            type="text"
-            placeholder="Search blogs..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="px-3 py-1 rounded border border-gray-300 bg-white text-black dark:bg-gray-700 dark:border-gray-600 dark:text-white w-32 sm:w-48 lg:w-64"
-          />
-          <button
-            type="submit"
-            className="p-2 bg-gray-600 rounded hover:bg-gray-500 dark:bg-gray-700 dark:hover:bg-gray-600"
+        <div className="flex items-center space-x-4">
+          <form 
+            onSubmit={handleSearch} 
+            className="relative hidden md:block"
           >
-            <SearchIcon className="text-white dark:text-gray-300" />
-          </button>
-        </form>
+            <input
+              type="text"
+              placeholder="Search blogs..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 focus:ring-2 focus:ring-blue-500 transition-all"
+            />
+          </form>
 
-        
-        <ThemeControls className="mt-2 lg:mt-0" />
+          <ThemeControls />
 
-        
-        <RouterLink
-          to="/editor"
-          className="ml-4 p-2 bg-gray-600 rounded text-white hover:bg-gray-500 dark:bg-gray-700 dark:hover:bg-gray-600 mt-2 lg:mt-0"
-        >
-          New Post
-        </RouterLink>
+          <RouterLink
+            to="/editor"
+            className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:scale-105 transition-transform"
+          >
+            New Post
+          </RouterLink>
+        </div>
       </div>
     </header>
   );

@@ -59,76 +59,70 @@ function BlogEditor() {
   };
 
   return (
-    <div
-      className={`container mx-auto px-4 py-6 ${
-        themeMode === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
+    <div 
+      className={`min-h-screen py-12 px-4 sm:px-6 lg:px-8 ${
+        themeMode === "dark" 
+          ? "bg-gradient-to-br from-gray-900 to-black text-white" 
+          : "bg-gradient-to-br from-gray-100 to-white text-gray-900"
       }`}
     >
-      <h1 className="text-2xl md:text-3xl font-bold mb-4">
-        {existingPost ? "Edit Blog Post" : "Create New Blog Post"}
-      </h1>
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-6">
-        <div className="space-y-2">
-          <label
-            htmlFor="title"
-            className="block text-base md:text-lg font-medium"
-          >
-            Title
-          </label>
-          <input
-            id="title"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-            placeholder="Enter the blog title"
-          />
-        </div>
-        <div className="space-y-2">
-          <label
-            htmlFor="category"
-            className="block text-base md:text-lg font-medium"
-          >
-            Category
-          </label>
-          <select
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-          >
-            <option value="" disabled>
-              Select a category
-            </option>
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="space-y-2">
-          <label
-            htmlFor="content"
-            className="block text-base md:text-lg font-medium"
-          >
-            Content
-          </label>
-          <div className="min-h-[200px] border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-800">
-            <ReactQuill
-              value={content}
-              onChange={setContent}
-              className="min-h-[200px] md:min-h-[300px] dark:bg-gray-800"
+      <div className="max-w-3xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg shadow-2xl rounded-2xl p-8 sm:p-12">
+        <h1 className="text-4xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+          {existingPost ? "Edit Blog Post" : "Create New Blog Post"}
+        </h1>
+        
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <label className="block text-lg font-semibold text-gray-700 dark:text-gray-300">
+              Title
+            </label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="What's your blog about?"
+              className="w-full px-4 py-3 border-2 font-semibold dark:text-gray-600 border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 transition-all"
             />
           </div>
-        </div>
-        <button
-          type="submit"
-          className="mt-6 self-start px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {existingPost ? "Update" : "Publish"}
-        </button>
-      </form>
+
+          <div className="space-y-2">
+            <label className="block text-lg font-semibold text-gray-700 dark:text-gray-300">
+              Category
+            </label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full px-4 py-3 border-2 dark:text-gray-600 border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 transition-all"
+            >
+              <option value="" disabled>Select a category</option>
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-lg font-semibold text-gray-700 dark:text-gray-300">
+              Content
+            </label>
+            <div className="border-2  border-gray-300 dark:border-gray-600 rounded-xl overflow-hidden">
+              <ReactQuill
+                value={content}
+                onChange={setContent}
+                theme="snow"
+                className="min-h-[300px] "
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:scale-[1.02] transition-transform"
+          >
+            {existingPost ? "Update Post" : "Publish Post"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

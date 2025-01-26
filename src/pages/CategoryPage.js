@@ -1,83 +1,49 @@
-// src/pages/CategoryPage.js
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  Typography,
-  Container,
-  List,
-  ListItem,
-  ListItemText,
-} from "@mui/material";
 
 function CategoryPage() {
   const { categoryId } = useParams();
   const blogs = useSelector((state) => state.blogs.posts);
-  const themeMode = useSelector((state) => state.theme.mode); // Assuming theme mode is stored in Redux
 
   // Ensure categoryId is correctly used to match blog category
   const filteredBlogs = blogs.filter((blog) => blog.category === categoryId);
 
   return (
-    <Container
-      sx={{
-        backgroundColor: themeMode === 'dark' ? '#121212' : '#ffffff',
-        color: themeMode === 'dark' ? '#ffffff' : '#000000',
-        minHeight: '100vh',
-      }}
-    >
-      <Typography
-        variant="h4"
-        component="h1"
-        gutterBottom
-        sx={{
-          color: themeMode === 'dark' ? '#ffffff' : '#000000',
-        }}
-      >
-        {categoryId} Blogs
-      </Typography>
-      {filteredBlogs.length === 0 ? (
-        <Typography
-          sx={{
-            color: themeMode === 'dark' ? '#ffffff' : '#000000',
-          }}
-        >
-          No blogs found in this category.
-        </Typography>
-      ) : (
-        <List>
-          {filteredBlogs.map((blog) => (
-            <ListItem
-              key={blog.id}
-              component={Link}
-              to={`/blog/${blog.id}`}
-              button
-              sx={{
-                bgcolor: themeMode === 'dark' ? '#333333' : '#ffffff',
-                '&:hover': {
-                  bgcolor: themeMode === 'dark' ? '#444444' : '#f5f5f5',
-                },
-              }}
-            >
-              <ListItemText
-                primary={blog.title}
-                secondary={new Date(blog.date).toLocaleDateString()}
-                primaryTypographyProps={{
-                  sx: {
-                    color: themeMode === 'dark' ? '#ffffff' : '#000000',
-                  },
-                }}
-                secondaryTypographyProps={{
-                  sx: {
-                    color: themeMode === 'dark' ? '#b0b0b0' : '#666666',
-                  },
-                }}
-              />
-            </ListItem>
-          ))}
-        </List>
-      )}
-    </Container>
+    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-4xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+          {categoryId} Blogs
+        </h1>
+
+        {filteredBlogs.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-2xl text-gray-500 dark:text-gray-400">
+              No blogs found in this category 📝
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {filteredBlogs.map((blog) => (
+              <Link 
+                key={blog.id} 
+                to={`/blog/${blog.id}`}
+                className="block p-6 rounded-2xl bg-white dark:bg-gray-800 shadow-md dark:shadow-none transition-all duration-300 hover:scale-[1.02] hover:shadow-xl dark:hover:bg-gray-700"
+              >
+                <div className="flex justify-between items-center">
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    {blog.title}
+                  </h2>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    {new Date(blog.date).toLocaleDateString()}
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
